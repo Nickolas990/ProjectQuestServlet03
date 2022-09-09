@@ -22,4 +22,9 @@ public class Location {
     public void setConnectedLocations(Location...locations) {
         Arrays.stream(locations).forEach(e -> connectedLocations.add(e));
     }
+
+    @Override
+    public String toString() {
+        return nameOfLocation;
+    }
 }

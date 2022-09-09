@@ -1,5 +1,6 @@
 package com.javarush.echo.nikolaymelnikov.projectservletquest_03;
 
+import com.javarush.echo.nikolaymelnikov.projectservletquest_03.characters.Hero;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class User {
     private String username;
-    private Character hero;
+    private Hero hero;
 
     public User() {
     }

@@ -1,4 +1,13 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: hrom_
+  Date: 08.09.2022
+  Time: 1:42
+  To change this template use File | Settings | File Templates.
+--%>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,8 +27,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
-<a href="game-servlet">Game</a>
-
 <div class="container text-center">
     <div class="row">
         <div class="col">
@@ -111,7 +118,16 @@
     <div class="col-md-8 offset-md-2">
         <div class="card">
             <div class="card-body">
-                {Decide Space}
+                <ul>
+                    <c:forEach items="${location.getConnectedLocations()}" var="destination">
+                        <li>
+                            <form action="${pageContext.request.contextPath}/move" method="post">
+                                <input type="hidden" name="destination" value="${destination}">
+                                <button class="btn btn-primary" type="submit">${destination}</button>
+                            </form>
+                        </li>
+                    </c:forEach>
+                </ul>
             </div>
         </div>
     </div>
