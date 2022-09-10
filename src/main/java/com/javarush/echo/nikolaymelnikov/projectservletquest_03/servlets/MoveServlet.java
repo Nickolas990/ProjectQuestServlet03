@@ -2,6 +2,7 @@ package com.javarush.echo.nikolaymelnikov.projectservletquest_03.servlets;
 
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.GameMap;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.Location;
+import com.javarush.echo.nikolaymelnikov.projectservletquest_03.UserRepository;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.characters.Hero;
 
 import javax.servlet.*;
@@ -11,7 +12,6 @@ import java.io.IOException;
 
 @WebServlet(name = "Move", value = "/move")
 public class MoveServlet extends HttpServlet {
-
 
 
     @Override

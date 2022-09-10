@@ -32,7 +32,11 @@ public class Registration extends HttpServlet {
         String username = request.getParameter("username");
         HttpSession session = request.getSession();
         System.out.println(username);
-        User user = userRepository.load(username);
+        User user;
+        if (!userRepository.isExist(username)) {
+            userRepository.save(new User(username));
+        }
+        user = userRepository.load(username);
         if (user.getHero() == null) {
             user.setHero(new Hero(gameMap));
             user.getHero().setName(user.getUsername());

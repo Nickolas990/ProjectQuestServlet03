@@ -7,12 +7,13 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.interfaces.Movab
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 @Setter
-public class Hero extends Character implements Movable {
+public class Hero extends Character implements Movable, Serializable {
 
     private GameMap gameMap;
     private Location currentLocation;

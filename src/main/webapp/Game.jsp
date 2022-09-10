@@ -31,7 +31,7 @@
     <div class="row">
         <div class="col">
             <div class="card text-bg-warning mb-3" style="max-width: 18rem;">
-                <div class="card-header">Characters in this Location</div>
+
                 <div class="card-body">
                     <h5 class="card-title">You can interact with this people</h5>
                     <ul class="list-group list-group-flush">
@@ -40,12 +40,22 @@
                         <li class="list-group-item text-bg-warning">Третий элемент</li>
                     </ul>
                 </div>
+                <br>
+            </div>
+            <div class="card text-bg-secondary mb-3" style="max-width: 18rem;">
+                <div class="card-header">Navigation</div>
                 <div class="card-body">
-                    <h5 class="card-title">You can interact with this people</h5>
+                    <h5 class="card-title">Where should I go?</h5>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-bg-warning">Элемент</li>
-                        <li class="list-group-item text-bg-warning">Второй элемент</li>
-                        <li class="list-group-item text-bg-warning">Третий элемент</li>
+                        <c:forEach items="${location.getConnectedLocations()}" var="destination">
+                            <li class="list-group-item text-bg-secondary">
+                                <form action="${pageContext.request.contextPath}/move" method="post">
+                                    <input type="hidden" name="destination" value="${destination}">
+                                    <button class="btn btn-primary" type="submit">${destination}</button>
+                                </form>
+                                <br>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
@@ -84,7 +94,7 @@
             </div>
             <br>
             <div class="card">
-                <div class="card-body">
+                <div class="card-body bs-green" style="max-width: 900px">
                     ${location.getLocationImage()}
                 </div>
             </div>
@@ -93,8 +103,17 @@
             HealthBar
             <div class="progress">
                 <div class="progress-bar bg-danger" role="progressbar" style="width: ${hero.getCurrentHealth()}%"
-                    aria-label="Базовый пример" aria-valuenow="25" aria-valuemin="0" aria-valuemax="${hero.getMaxHealth()}">
+                     aria-label="Базовый пример" aria-valuenow="25" aria-valuemin="0"
+                     aria-valuemax="${hero.getMaxHealth()}">
                 </div>
+            </div>
+            <br>
+            <div class="card">
+                <h3>${hero.getName()}</h3>
+                <p>Level - ${hero.getLevel()}</p>
+                <p>Strength - ${hero.getStrength()}</p>
+                <p>Stamina - ${hero.getStamina()}</p>
+                <p>Defence - ${hero.getDefence()}</p>
             </div>
             <br>
             <div class="card text-bg-warning mb-3" style="max-width: 18rem;">
@@ -107,31 +126,17 @@
                         <li class="list-group-item text-bg-warning">Третий элемент</li>
                     </ul>
                 </div>
-        </div>
-    </div>
-</div>
-<div class="col-md-6 offset-md-3">
-</div>
-<br>
-</div>
-<div class="row">
-    <div class="col-md-8 offset-md-2">
-        <div class="card">
-            <div class="card-body">
-                <ul>
-                    <c:forEach items="${location.getConnectedLocations()}" var="destination">
-                        <li>
-                            <form action="${pageContext.request.contextPath}/move" method="post">
-                                <input type="hidden" name="destination" value="${destination}">
-                                <button class="btn btn-primary" type="submit">${destination}</button>
-                            </form>
-                        </li>
-                    </c:forEach>
-                </ul>
             </div>
         </div>
     </div>
+    <div class="col-md-6 offset-md-3">
+    </div>
+    <br>
 </div>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        {Action}
+    </div>
 </div>
 </body>
 </html>
