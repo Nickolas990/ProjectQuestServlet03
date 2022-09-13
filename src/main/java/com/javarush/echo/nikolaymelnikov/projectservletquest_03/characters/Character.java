@@ -21,4 +21,9 @@ public abstract class Character {
     public Character() {
 
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
