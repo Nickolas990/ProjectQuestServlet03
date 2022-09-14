@@ -2,6 +2,8 @@ package com.javarush.echo.nikolaymelnikov.projectservletquest_03.items.weapons;
 
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.items.weapons.abstraction.Weapon;
 
+import java.util.stream.DoubleStream;
+
 public class Knife extends Weapon {
 
     public Knife() {

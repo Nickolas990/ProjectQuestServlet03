@@ -26,7 +26,7 @@
         <ul>
             <c:forEach items="${answers}" var="answer">
                 <li class="list-group-item text-bg-light">
-                        <button onclick='continueDialog("${answer.getId()}")' class="btn btn-primary" type="submit">${answer}</button>
+                        <button onclick='continueDialog("${pageContext.request.contextPath}", "${answer.getId()}")' class="btn btn-primary" type="submit">${answer}</button>
                     <br>
                 </li>
             </c:forEach>

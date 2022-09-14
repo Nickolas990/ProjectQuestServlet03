@@ -19,9 +19,9 @@ $(function(){
             })
         })
     });
-function startDialog(character) {
+function startDialog(appName, character) {
     $.ajax({
-        url: "/quest",
+        url: appName + "/quest",
         method: "GET",
         dataType: "html",
         data: {character: character},
@@ -34,9 +34,9 @@ function startDialog(character) {
         }
     })
 }
-function continueDialog(id) {
+function continueDialog(appName, id) {
     $.ajax({
-        url: "/quest",
+        url: appName + "/quest",
         method: "GET",
         dataType: "html",
         data: {id: id},

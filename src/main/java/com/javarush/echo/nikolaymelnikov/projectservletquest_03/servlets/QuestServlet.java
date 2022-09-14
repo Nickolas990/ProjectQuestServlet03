@@ -20,7 +20,7 @@ public class QuestServlet extends HttpServlet {
         HttpSession currentSession = request.getSession();
         Hero hero = (Hero) currentSession.getAttribute("hero");
         Location currentLocation = (Location) currentSession.getAttribute("location");
-        questGiver = (QuestGiver) currentLocation.getCharacterInLocation()
+        questGiver = (QuestGiver) currentLocation.getNPCInLocation()
                 .stream()
                 .filter(e -> e.getName().equals(request.getParameter("character")))
                 .findFirst()
@@ -44,7 +44,7 @@ public class QuestServlet extends HttpServlet {
         currentSession.setAttribute("answers", dialogue.getBlockById(id).getAnswers());
         currentSession.setAttribute("dialogue", dialogue);
         currentSession.setAttribute("character", questGiver);
-        response.sendRedirect("/Quest.jsp");
+        response.sendRedirect(request.getContextPath() +"/Quest.jsp");
 
     }
 

@@ -10,6 +10,7 @@ public abstract class Item {
     private int weight;
     private String imageFile;
     private String image = String.format("<img src=\"%s\" class=\"img-fluid\"/>", imageFile);
+    private boolean inHand = false;
 
     @Override
     public String toString() {

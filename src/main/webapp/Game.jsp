@@ -37,10 +37,10 @@
                 <div class="card-body">
                     <h5 class="card-title">You can interact with this people</h5>
                     <ul class="list-group list-group-flush">
-                        <c:forEach items="${location.getCharacterInLocation()}" var="character">
+                        <c:forEach items="${location.getNPCInLocation()}" var="NPC">
                             <li class="list-group-item text-bg-warning">
                                 <div class="card">
-                                    <h3 id="questGiver">${character}</h3>
+                                    <h3 id="questGiver">${NPC}</h3>
                                     <br>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
@@ -62,13 +62,13 @@
                                                     <div id="content">
                                                         <p>Sorry, I can't hear you. Come closer.
                                                         <p>
-                                                            <button onclick='startDialog("${character.getName()}")'
+                                                            <button onclick='startDialog("${pageContext.request.contextPath}", "${NPC.getName()}")'
                                                                     class="btn btn-success">Come to Stranger
                                                             </button>
                                                     </div>
                                                     <!--   <form action="quest" method="get">
                                                         <div>
-                                                            <input type="hidden" name="character" value=${character}><br>
+                                                            <input type="hidden" name="NPC" value=${NPC}><br>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <div class="button">
@@ -154,7 +154,7 @@
                                             aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <img src="/locationImages/imageOfMap.png" class="img-fluid"/>
+                                    <img src="images/locationImages/imageOfMap.png" class="img-fluid"/>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
