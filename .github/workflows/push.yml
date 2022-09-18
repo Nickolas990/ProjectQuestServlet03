@@ -35,7 +35,7 @@ jobs:
         if: github.event_name == 'pull_request'
         with:
           recreate: true
-          message: "coverage = ${{ steps.jacoco.output.coverage }}"
+          message: "coverage = ${{ steps.jacoco.outputs.coverage }}"
 
       - name: Upload JaCoCo coverage report
         uses: actions/upload-artifact@v2
