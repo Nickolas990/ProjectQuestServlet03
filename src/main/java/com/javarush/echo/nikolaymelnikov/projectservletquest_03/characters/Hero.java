@@ -35,7 +35,10 @@ public class Hero extends NPC implements Movable, Serializable, Backpack {
 
     @Override
     public void move(Location location) {
-        currentLocation = location;
+        if(getGameMap().getMap().containsKey(location.getNameOfLocation())){
+            currentLocation = location;
+        } else throw new IllegalStateException("This place is not created by our Gods");
+
     }
 
     @Override
