@@ -18,3 +18,27 @@ jobs:
 
       - name: Maven Package
         run: mvn -B clean install
+
+      - name: Generate JaCoCo badge
+        id: jacoco
+        uses: cicirello/jacoco-badge-generator@v2.0.1
+        with:
+          jacoco-csv-file: target/site/jacoco/jacoco.csv
+
+      - name: Log coverage percentage
+        run: |
+          echo "coverage = ${{ steps.jacoco.output.coverage }}"
+          echo "branch coverage = ${{ steps.jacoco.output.coverage }}"
+
+      - name: Add coverage push comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          message: "coverage = ${{ steps.jacoco.output.coverage }}"
+
+      - name: Upload JaCoCo coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-report
+          path: target/site/jacoco
