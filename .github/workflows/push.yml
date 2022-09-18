@@ -27,8 +27,8 @@ jobs:
 
       - name: Log coverage percentage
         run: |
-          echo "coverage = ${{ steps.jacoco.output.coverage }}"
-          echo "branch coverage = ${{ steps.jacoco.output.coverage }}"
+          echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
+          echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
 
       - name: Add coverage push comment
         uses: marocchino/sticky-pull-request-comment@v2
