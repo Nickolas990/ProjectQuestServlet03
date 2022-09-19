@@ -1,0 +1,37 @@
+name: Push to Fly.io prod
+
+on:
+  workflow_dispatch:
+    inputs:
+      prod_env:
+        description: "env"
+        required: false
+        default: heroku
+  push:
+    branches:
+      - main
+
+jobs:
+  prod_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1.2.1
+        with:
+          java-version: 17
+          maven-version: 3.8.2
+      - name: Maven deploy to Heroku
+        if: ${{ github.event.inputs.message }} == 'heroku'
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: mvn heroku:deploy
+
+      - name: setup flyctl
+        if: ${{ github.event.inputs.message }} == 'fly.io'
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: run deploy
+        if: ${{ github.event.inputs.message }} == 'fly.io'
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
