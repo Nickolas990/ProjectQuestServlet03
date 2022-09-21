@@ -5,16 +5,17 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.items.Item;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.*;
 
 @Getter
 @Setter
-public class Location {
+public class Location implements Serializable {
     private String nameOfLocation;
-    private List<NPC> NPCInLocation = new ArrayList<>();
+    private transient List<NPC> NPCInLocation = new ArrayList<>();
     private List<Location> connectedLocations = new ArrayList<>();
 
-    private List<Item> itemsInLocation = new ArrayList<>();
+    private transient List<Item> itemsInLocation = new ArrayList<>();
     private String locationImage;
 
     public Location(String nameOfLocation) {
