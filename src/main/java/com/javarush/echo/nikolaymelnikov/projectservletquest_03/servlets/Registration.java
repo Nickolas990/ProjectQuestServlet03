@@ -9,12 +9,13 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.Objects;
 
 @WebServlet(name = "registration", value = "/registration")
 public class Registration extends HttpServlet {
 
-    private UserRepository userRepository = null;
-    private GameMap gameMap = null;
+    private UserRepository userRepository;
+    private GameMap gameMap;
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -22,30 +23,28 @@ public class Registration extends HttpServlet {
         userRepository = (UserRepository) servletContext.getAttribute("userRepository");
         gameMap = (GameMap) servletContext.getAttribute("gameMap");
     }
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         HttpSession session = request.getSession();
-        System.out.println(username);
         User user;
         if (!userRepository.isExist(username)) {
-            userRepository.save(new User(username));
-        }
-        user = userRepository.load(username);
-        if (user.getHero() == null) {
-            user.setHero(new Hero(gameMap));
-            user.getHero().setName(user.getUsername());
+            createUser(username);
         }
 
+        user = userRepository.load(username);
         session.setAttribute("user", user);
         session.setAttribute("hero", user.getHero());
         session.setAttribute("gameMap", gameMap);
         response.sendRedirect("game");
 
+    }
+
+    private void createUser(String username) {
+        User user = new User(username);
+        userRepository.save(user);
+        user.setHero(new Hero(gameMap));
+        user.getHero().setName(user.getUsername());
     }
 }

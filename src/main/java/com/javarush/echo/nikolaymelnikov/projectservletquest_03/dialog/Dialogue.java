@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -29,18 +30,15 @@ public class Dialogue implements Serializable {
     }
 
     public Block getBlockById(String id) {
-        for (Block block : blocks) {
-            if (block.getId().equals(id)){
-                return block;
+        if (Objects.nonNull(id) && Objects.nonNull(blocks)) {
+            for (Block block : blocks) {
+                if (block.getId().equals(id)) {
+                    return block;
+                }
             }
-
+            throw new IllegalArgumentException("No such block found");
         }
-
-        throw new IllegalArgumentException("No such block found");
-    }
-
-    public void showAnswersById(String id) {
-        Answer[] answers = getBlockById(id).getAnswers();
+        throw new IllegalArgumentException("Blocks missed");
     }
     private static InputStream getFileFromResource(String filename) throws URISyntaxException {
         InputStream resource = Dialogue.class.getClassLoader().getResourceAsStream(filename);
