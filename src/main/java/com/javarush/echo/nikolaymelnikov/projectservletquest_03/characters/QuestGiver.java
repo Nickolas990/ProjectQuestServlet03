@@ -5,12 +5,13 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.quests.Quest;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 @Getter
 @Setter
-public class QuestGiver extends NPC {
+public class QuestGiver extends NPC implements Serializable {
     private Quest quest;
     private Dialogue dialog;
 
