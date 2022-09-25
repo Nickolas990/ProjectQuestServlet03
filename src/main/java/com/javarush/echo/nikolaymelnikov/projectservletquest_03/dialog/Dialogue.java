@@ -9,19 +9,22 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 @Getter
 @Setter
 public class Dialogue implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger("rollingFile");
-    private Block[] blocks;
+    private transient ArrayList<Block> blocks = new ArrayList<>();
 
     public static Dialogue initialize(String characterName) {
         ObjectMapper objectMapper = new ObjectMapper();
         Dialogue dialogue = null;
-        try {
-            dialogue = objectMapper.readValue(new BufferedReader(new InputStreamReader(getFileFromResource("dialogs/" + characterName + ".json"), StandardCharsets.UTF_8)), Dialogue.class);
+        try (InputStream fileFromResource = getFileFromResource("dialogs/" + characterName + ".json");
+             BufferedReader src = new BufferedReader(new InputStreamReader(fileFromResource, StandardCharsets.UTF_8))) {
+            dialogue = objectMapper.readValue(src, Dialogue.class);
         } catch (IOException | URISyntaxException e) {
             logger.error(e + " There was a problem with the *.json file. Check that it is in the settings root directory and matches the your class");
             new RuntimeException(e + " There was a problem with the *.json file. Check that it is in the settings root directory and matches the your class");
@@ -31,18 +34,21 @@ public class Dialogue implements Serializable {
 
     public Block getBlockById(String id) {
         if (Objects.nonNull(id) && Objects.nonNull(blocks)) {
-            for (Block block : blocks) {
-                if (block.getId().equals(id)) {
-                    return block;
-                }
+            Optional<Block> result = blocks.stream()
+                    .filter(block -> block.getId().equals(id))
+                    .findFirst();
+            if (result.isPresent()) {
+                return result.get();
+            } else {
+                throw new IllegalArgumentException("No such block found");
             }
-            throw new IllegalArgumentException("No such block found");
         }
         throw new IllegalArgumentException("Blocks missed");
     }
+
     private static InputStream getFileFromResource(String filename) throws URISyntaxException {
         InputStream resource = Dialogue.class.getClassLoader().getResourceAsStream(filename);
-        if (resource == null) {
+        if (Objects.isNull(resource)) {
             throw new IllegalArgumentException("File of Dialogue not found");
         } else {
             return resource;

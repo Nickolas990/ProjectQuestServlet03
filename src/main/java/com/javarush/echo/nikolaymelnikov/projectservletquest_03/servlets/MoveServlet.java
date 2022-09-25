@@ -15,11 +15,6 @@ public class MoveServlet extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
@@ -31,8 +26,6 @@ public class MoveServlet extends HttpServlet {
         System.out.println(hero.getCurrentLocation());
         session.setAttribute("hero", hero);
         response.sendRedirect("game");
-
-
 
     }
 }

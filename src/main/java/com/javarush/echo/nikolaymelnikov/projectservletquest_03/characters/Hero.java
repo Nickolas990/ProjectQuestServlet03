@@ -7,6 +7,7 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.interfaces.Movab
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.items.Item;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.quests.Quest;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Hero extends NPC implements Movable, Serializable, Backpack {
 
     private GameMap gameMap;
@@ -26,7 +28,6 @@ public class Hero extends NPC implements Movable, Serializable, Backpack {
     public Hero(GameMap gameMap) {
         this.gameMap = gameMap;
         currentLocation = gameMap.getStartLocation();
-        setInventory(new ArrayList<>());
         currentHealth = maxHealth;
         stamina = 10;
         strength = 20;
