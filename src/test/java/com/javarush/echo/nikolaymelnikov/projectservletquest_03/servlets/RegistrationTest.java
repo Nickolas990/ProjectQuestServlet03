@@ -4,6 +4,7 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.GameMap;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.User;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.UserRepository;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.characters.Hero;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -49,9 +50,6 @@ class RegistrationTest {
     @Spy
     private Registration registrationServlet;
 
-
-
-
     @Test
     void test_init() throws ServletException {
         when(servletConfig.getServletContext())
@@ -93,6 +91,7 @@ class RegistrationTest {
 
         verify(userRepository).load("MockUser");
     }
+
     @Test
     void test_doPost_if_user_is_not_new() throws ServletException, IOException {
         when(request.getParameter(argThat("username"::equals)))

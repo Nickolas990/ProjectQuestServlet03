@@ -30,8 +30,6 @@ class GameServletTest {
     @Mock
     private Hero hero;
     @Mock
-    private User user;
-    @Mock
     HttpServletRequest request;
     @Mock
     HttpServletResponse response;
@@ -43,8 +41,7 @@ class GameServletTest {
     @Test
     void doGetTest() throws IOException {
         when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("user")).thenReturn(user);
-        when(user.getHero()).thenReturn(hero);
+        when(session.getAttribute("hero")).thenReturn(hero);
         when(hero.getCurrentLocation()).thenReturn(new Location("Mock"));
         servlet.doGet(request, response);
 
