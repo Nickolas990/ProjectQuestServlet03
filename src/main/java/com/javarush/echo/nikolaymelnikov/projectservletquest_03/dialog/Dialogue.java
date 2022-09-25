@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -25,9 +24,8 @@ public class Dialogue implements Serializable {
         try (InputStream fileFromResource = getFileFromResource("dialogs/" + characterName + ".json");
              BufferedReader src = new BufferedReader(new InputStreamReader(fileFromResource, StandardCharsets.UTF_8))) {
             dialogue = objectMapper.readValue(src, Dialogue.class);
-        } catch (IOException | URISyntaxException e) {
-            logger.error(e + " There was a problem with the *.json file. Check that it is in the settings root directory and matches the your class");
-            new RuntimeException(e + " There was a problem with the *.json file. Check that it is in the settings root directory and matches the your class");
+        } catch (IOException e) {
+            logger.error("Message:{0}. There was a problem with the *.json file. Check that it is in the settings root directory and matches the your class", e);
         }
         return dialogue;
     }
@@ -46,7 +44,7 @@ public class Dialogue implements Serializable {
         throw new IllegalArgumentException("Blocks missed");
     }
 
-    private static InputStream getFileFromResource(String filename) throws URISyntaxException {
+    private static InputStream getFileFromResource(String filename) {
         InputStream resource = Dialogue.class.getClassLoader().getResourceAsStream(filename);
         if (Objects.isNull(resource)) {
             throw new IllegalArgumentException("File of Dialogue not found");
