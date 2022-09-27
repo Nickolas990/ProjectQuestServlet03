@@ -9,6 +9,8 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.quests.Quest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,11 +19,11 @@ import java.util.ArrayList;
 @Setter
 @NoArgsConstructor
 public class Hero extends NPC implements Movable, Serializable, Backpack {
-
-    private GameMap gameMap;
+private static final Logger logger = LoggerFactory.getLogger(Hero.class);
+    private transient GameMap gameMap;
     private Location currentLocation;
 
-    private Quest currentQuest;
+    private transient Quest currentQuest;
     private int experience = 0;
     private int expToNextLevel = 100;
 
@@ -36,14 +38,15 @@ public class Hero extends NPC implements Movable, Serializable, Backpack {
 
     @Override
     public void move(Location location) {
+        logger.info("Moving to {}", location);
         if(getGameMap().getMap().containsKey(location.getNameOfLocation())){
             currentLocation = location;
         } else throw new IllegalStateException("This place is not created by our Gods");
-
     }
 
     @Override
     public boolean take(Item item) {
+        logger.info("Taking {}", item);
         if (currentLocation.getItemsInLocation().contains(item)) {
             getInventory().add(item);
             currentLocation.getItemsInLocation().remove(item);
@@ -55,6 +58,7 @@ public class Hero extends NPC implements Movable, Serializable, Backpack {
 
     @Override
     public boolean give(Item item, NPC NPC) {
+        logger.info("Giving {}", item);
         if (getInventory().contains(item)) {
             getInventory().remove(item);
             NPC.getInventory().add(item);

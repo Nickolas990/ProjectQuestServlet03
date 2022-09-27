@@ -3,6 +3,7 @@ package com.javarush.echo.nikolaymelnikov.projectservletquest_03.characters;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.Location;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.items.Item;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public abstract class NPC {
 
     protected int maxHealth = 100;
@@ -25,10 +27,6 @@ public abstract class NPC {
 
     public List<Item> getInventory() {
         return inventory;
-    }
-
-    public NPC() {
-
     }
 
     @Override

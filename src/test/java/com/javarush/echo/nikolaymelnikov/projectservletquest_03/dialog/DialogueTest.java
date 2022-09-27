@@ -1,18 +1,20 @@
 package com.javarush.echo.nikolaymelnikov.projectservletquest_03.dialog;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 class DialogueTest {
 
     Dialogue dialogue;
-
-
-
-    @Test
-    void test_initialize_with_wrong_file() {
-        assertThrows(RuntimeException.class, () -> dialogue = Dialogue.initialize("test"));
-    }
 
     @Test
     void test_getBlockById_if_chosen_wrong_block() {

@@ -23,7 +23,6 @@ public class MoveServlet extends HttpServlet {
         Hero hero = (Hero) session.getAttribute("hero");
 
         hero.move(destination);
-        System.out.println(hero.getCurrentLocation());
         session.setAttribute("hero", hero);
         response.sendRedirect("game");
 

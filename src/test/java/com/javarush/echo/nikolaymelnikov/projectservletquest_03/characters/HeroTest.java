@@ -54,6 +54,7 @@ class HeroTest {
     }
 
     @Test
-    void give() {
+    void test_give_wrong_item() {
+        assertFalse(hero.give(new Uzi(), hero));
     }
 }
