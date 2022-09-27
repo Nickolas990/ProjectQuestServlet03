@@ -4,6 +4,9 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.Location;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.characters.Hero;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.characters.QuestGiver;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.dialog.Dialogue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
@@ -11,11 +14,12 @@ import java.util.Objects;
 
 @WebServlet(name = "QuestServlet", value = "/quest")
 public class QuestServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(QuestServlet.class);
 
     public static final String CHARACTER = "character";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response){
         HttpSession currentSession = request.getSession();
         Hero hero = (Hero) currentSession.getAttribute("hero");
         Location currentLocation = (Location) currentSession.getAttribute("location");
@@ -39,7 +43,11 @@ public class QuestServlet extends HttpServlet {
         currentSession.setAttribute("answers", dialogue.getBlockById(id).getAnswers());
         currentSession.setAttribute("dialogue", dialogue);
         currentSession.setAttribute(CHARACTER, questGiver);
-        response.sendRedirect(request.getContextPath() +"/Quest.jsp");
+        try {
+            response.sendRedirect(request.getContextPath() +"/Quest.jsp");
+        } catch (IOException e) {
+            logger.error("{} while redirecting to Game.jsp", e.getMessage());
+        }
 
     }
 }

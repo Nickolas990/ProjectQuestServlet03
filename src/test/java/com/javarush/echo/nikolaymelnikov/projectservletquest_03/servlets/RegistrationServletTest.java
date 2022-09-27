@@ -4,7 +4,6 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.GameMap;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.User;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.UserRepository;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.characters.Hero;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -17,17 +16,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.io.IOException;
-import java.util.Objects;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class RegistrationTest {
+class RegistrationServletTest {
 
     @Mock
     private UserRepository userRepository;
@@ -48,7 +42,7 @@ class RegistrationTest {
     @Mock
     private Hero hero;
     @Spy
-    private Registration registrationServlet;
+    private RegistrationServlet registrationServlet;
 
     @Test
     void test_init() throws ServletException {
@@ -68,7 +62,7 @@ class RegistrationTest {
     }
 
     @Test
-    void test_doPost_if_user_is_new() throws ServletException, IOException {
+    void test_doPost_if_user_is_new() throws ServletException {
         when(request.getParameter(argThat("username"::equals)))
                 .thenReturn("MockUser");
         when(request.getSession())
@@ -93,7 +87,7 @@ class RegistrationTest {
     }
 
     @Test
-    void test_doPost_if_user_is_not_new() throws ServletException, IOException {
+    void test_doPost_if_user_is_not_new() throws ServletException {
         when(request.getParameter(argThat("username"::equals)))
                 .thenReturn("MockUser");
         when(request.getSession())

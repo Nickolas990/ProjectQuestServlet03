@@ -14,7 +14,7 @@ public class GameServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(GameServlet.class);
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response){
         response.setContentType("text/html");
         HttpSession currentSession = request.getSession();
         Hero hero = (Hero) currentSession.getAttribute("hero");
@@ -22,6 +22,10 @@ public class GameServlet extends HttpServlet {
         currentSession.setAttribute("location", hero.getCurrentLocation());
         currentSession.setAttribute("hero", hero);
         log.info("{} entered", hero.getName());
-        response.sendRedirect("Game.jsp");
+        try {
+            response.sendRedirect("Game.jsp");
+        } catch (IOException e) {
+            log.error("{} while redirecting to Game.jsp", e.getMessage());
+        }
     }
 }

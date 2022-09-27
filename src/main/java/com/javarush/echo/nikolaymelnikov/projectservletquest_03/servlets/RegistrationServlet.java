@@ -4,15 +4,17 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.GameMap;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.User;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.UserRepository;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.characters.Hero;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.Objects;
 
 @WebServlet(name = "registration", value = "/registration")
-public class Registration extends HttpServlet {
+public class RegistrationServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(RegistrationServlet.class);
 
     private UserRepository userRepository;
     private GameMap gameMap;
@@ -25,7 +27,7 @@ public class Registration extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         String username = request.getParameter("username");
         HttpSession session = request.getSession();
         User user;
@@ -37,7 +39,11 @@ public class Registration extends HttpServlet {
         session.setAttribute("user", user);
         session.setAttribute("hero", user.getHero());
         session.setAttribute("gameMap", gameMap);
-        response.sendRedirect("game");
+        try {
+            response.sendRedirect("game");
+        } catch (IOException e) {
+            logger.error("{} while redirecting to game servlet", e.getMessage());
+        }
 
     }
 
