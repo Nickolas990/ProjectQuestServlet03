@@ -4,12 +4,13 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.characters.NPC;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 @Setter
-public class GameMap {
+public class GameMap implements Serializable {
     private Map<String, Location> map = new HashMap<>();
     private Location startLocation;
 
