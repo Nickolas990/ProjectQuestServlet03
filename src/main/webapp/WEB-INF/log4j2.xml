@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn">
     <Properties>
-        <Property name="basePath">${sys:catalina.home}/webapps/ProjectServletQuest_03/logs</Property>
+        <Property name="basePath">${sys:catalina.home}/logs</Property>
     </Properties>
 
     <Appenders>
@@ -18,7 +18,7 @@
             </Policies>
             <!-- Max 10 files will be created everyday -->
             <DefaultRolloverStrategy max="10">
-                <Delete basePath="${basePathr}" maxDepth="10">
+                <Delete basePath="${basePath}" maxDepth="10">
                     <!-- Delete all files older than 30 days -->
                     <IfLastModified age="30d" />
                 </Delete>

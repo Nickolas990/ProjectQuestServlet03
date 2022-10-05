@@ -5,13 +5,15 @@ import com.javarush.echo.nikolaymelnikov.projectservletquest_03.mapcreator.Defau
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
+@WebListener
 public class AppContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext ctx = sce.getServletContext();
         ctx.setAttribute("gameMap", DefaultMapCreator.create());
-        ctx.setAttribute("userRepo", new UserRepository());
+        ctx.setAttribute("userRepository", new UserRepository());
         }
 
     @Override
