@@ -2,6 +2,9 @@ package com.javarush.echo.nikolaymelnikov.projectservletquest_03.mapcreator;
 
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.GameMap;
 import com.javarush.echo.nikolaymelnikov.projectservletquest_03.Location;
+import com.javarush.echo.nikolaymelnikov.projectservletquest_03.characters.QuestGiver;
+import com.javarush.echo.nikolaymelnikov.projectservletquest_03.items.weapons.Knife;
+import com.javarush.echo.nikolaymelnikov.projectservletquest_03.quests.Quest;
 
 import java.util.Map;
 
@@ -19,6 +22,8 @@ public class DefaultMapCreator {
 
         Map<String, Location> house = newMap.getMap();
 
+        house.get("Kitchen").getItemsInLocation().add(new Knife());
+
         house.get("Entrance").setConnectedLocations(house.get("Living Room"));
         house.get("Living Room").setConnectedLocations(house.get("Entrance"),
                 house.get("Bathroom"),
@@ -30,6 +35,8 @@ public class DefaultMapCreator {
         house.get("Kitchen").setConnectedLocations(house.get("Living Room"));
         house.get("Bedroom").setConnectedLocations(house.get("Living Room"), house.get("Basement"));
         house.get("Basement").setConnectedLocations(house.get("Living Room"));
+
+        house.get("Entrance").placeCharacter(new QuestGiver("Grentias"));
 
         newMap.setStartLocation(newMap.getMap().get("Entrance"));
 

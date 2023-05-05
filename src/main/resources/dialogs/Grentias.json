@@ -1,0 +1,72 @@
+{
+  "blocks": [
+    {
+      "id": "start",
+      "question": "Hi there!",
+      "answers" : [
+        {
+          "id": "neutral01",
+          "answer" : "Good day. Who are you?"
+        },
+        {
+          "id": "friendly01",
+          "answer" : "Hi! Finally i found someone here! Who are you?"
+        },
+        {
+          "id": "aggressive01",
+          "answer" : "What do you staring on?! Tell me your name NOW!!!"
+        }
+      ]
+    },
+    {
+      "id": "neutral01",
+      "question": "My name is Grenatias. I am the master of this house. But now, a have some problems with controlling of this place. Please, bring me the knife, that you can find in a kitchen, and I will let you out",
+      "answers" : [
+        {
+          "id": "getQuest",
+          "answer" : "Of course! Let's help each other!"
+        },
+        {
+          "id": "end",
+          "answer" : "No, a don't have enough time to looking for cutlery for you."
+        },
+        {
+          "id": "attack",
+          "answer" : "How dare YOU asking me that? Prepare to die!"
+        }
+      ]
+    },
+    {
+      "id": "friendly01",
+      "question": "It's luck to ourselves to meet each other! I'm Grentias and I really need your help. Please, bring me the knife from kitchen",
+      "answers" : [
+        {
+          "id": "getQuest",
+          "answer" : "Of course! Let's help each other!"
+        },
+        {
+          "id": "end",
+          "answer" : "I'd like to escape by myself, sorry for that, but it's my own way."
+        },
+        {
+          "id": "attack",
+          "answer" : "I don't trust any strangers, let's fight!"
+        }
+      ]
+    },
+    {
+      "id": "aggressive01",
+      "question": "I am owner of this place. Take on your knees, useless fool!",
+      "answers" : [
+        {
+          "id": "attack",
+          "answer" : "That's really silly to be so rude. I'll teach you some manners!"
+        },
+        {
+          "id": "end",
+          "answer" : "I'm sorry for my speech. I think... I...  should to go..."
+        }
+      ]
+    }
+  ]
+}
